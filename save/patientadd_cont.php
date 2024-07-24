@@ -1,13 +1,8 @@
 <?php
 
-include("head.php");
-include_once("auth.php");
-include('connect.php');
-$r = $_SESSION['SESS_LAST_NAME'];
-$_SESSION['SESS_DEPARTMENT'] = 'management';
-$_SESSION['SESS_FORM'] = 'index';
 
-include_once("start_body.php"); 
+include_once("../config.php"); 
+include_once("../connect.php");
 
 
 // Check if the form is submitted
@@ -18,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $p_address = $_POST['p_address'];
 
     
-    $nicResult = select('new_patient', '*', "p_NIC = '$p_NIC'", '');
+    $nicResult = select('new_patient', '*', "p_NIC = '$p_NIC'", '../');
     if ($nicResult && $nicResult->rowCount() > 0) {
         echo '<script>alert("NIC already exists");</script>';
         echo "<script>location.href='addnewpatient.php';</script>";
@@ -26,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
    
-    $phoneResult = select('new_patient', '*', "p_phone_no = '$p_phone_no'", '');
+    $phoneResult = select('new_patient', '*', "p_phone_no = '$p_phone_no'", '../');
     if ($phoneResult && $phoneResult->rowCount() > 0) {
         echo '<script>alert("Phone number already exists");</script>';
         echo "<script>location.href='addnewpatient.php';</script>";
@@ -42,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         echo '<script>alert("Patient successfully recorded");</script>';
-        echo "<script>location.href='index.php';</script>";
+        echo "<script>location.href='../patient_details.php';</script>";
     } else {
         echo '<script>alert("Error recording patient");</script>';
         echo "<script>location.href='addnewpatian.php';</script>";

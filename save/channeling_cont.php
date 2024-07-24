@@ -1,12 +1,8 @@
 <?php
-include("head.php");
-include_once("auth.php");
-include('connect.php');
-$r = $_SESSION['SESS_LAST_NAME'];
-$_SESSION['SESS_DEPARTMENT'] = 'management';
-$_SESSION['SESS_FORM'] = 'index';
+include_once("../config.php"); 
+include_once("../connect.php");
 
-include_once("start_body.php"); 
+
 
 $name = $_POST['name'];
 $c_date = $_POST['c_date'];
@@ -19,7 +15,7 @@ $d_type = $_POST['d_type'];
 
 // Check if the form is submitted
 $where = "c_date = '$c_date'";
-$result = select('channeling', 'MAX(patient_number) as max_number', $where, '');
+$result = select('channeling', 'MAX(patient_number) as max_number', $where, '../');
 
 // Fetch the result
 $row = $result->fetch(PDO::FETCH_ASSOC);
@@ -41,7 +37,7 @@ try {
         echo '<script language="javascript">';
         echo 'alert("Patient successfully recorded with number ' . $new_number . '")';
         echo '</script>';
-        echo "<script> location.href='display_chanels.php';</script>";
+        echo "<script> location.href='../index.php';</script>";
     }
 } catch (PDOException $e) {
     echo "Insertion failed: " . $e->getMessage();

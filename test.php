@@ -148,47 +148,29 @@ $_SESSION['SESS_FORM'] = 'index';
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">JOB LIST</h3>
-                    <span onclick="click_open(1)"  class="btn btn-primary btn-bg pull-right  mx-2">Add New channeling</span>
+                    <span onclick="click_open(1)"  class="btn btn-primary btn-bg pull-right  mx-2">Add New JOB</span>
                     <table id="example1" class="table table-bordered table-striped">
-                    <section class="content">
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">Channeling Details</h3>
-        </div>
-        <div class="box-body">
-            <table id="channelingTable" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Channel ID</th>
-                        <th>Patient Name</th>
-                        <th>Date</th>
-                        <th>Note</th>
-                        <th>Location</th>
-                        <th>Doctor Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    // Fetch channeling data from the database, sorted by the most recent entry first
-                    $result = select('channeling', '*', '', '', 'c_id DESC');
-
-                    for ($i = 0; $row = $result->fetch(); $i++) { ?>
-                        <tr>
-                            <td><?php echo $row['c_id'] ?></td>
-                            <td><?php echo $row['name'] ?></td>
-                            <td><?php echo $row['c_date'] ?></td>
-                            <td><?php echo $row['c_note'] ?></td>
-                            <td><?php echo $row['location'] ?></td>
-                            <td><?php echo $row['d_type'] ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
-
-
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Company</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $result=select('job','*','action < 10'); for ($i = 0; $row = $result->fetch(); $i++) { ?>
+                            <tr>
+                                <td><?php echo $row['id']  ?></td>
+                                <td><?php echo $row['name']  ?></td>
+                                <td><?php echo $row['date']  ?></td>
+                                <td><?php echo $row['status']  ?></td>
+                                <td><a href="job_view.php?id=<?php echo base64_encode($row['id'])  ?>"><button class="btn btn-sm btn-info">View</button></a></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
                     <!-- Main content -->
                 </div>
             </div>
@@ -216,82 +198,44 @@ $_SESSION['SESS_FORM'] = 'index';
                             class="fa fa-times"></i></small>
                 </div>
 
-                <section class="content">
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">Add Channel</h3>
-        </div>
-        <div class="box-body d-block">
-            <form method="POST" action="./save/channeling_cont.php" onsubmit="return validateFormP()">
-                <div class="row" style="display: block;">
+                <div class="box-body d-block">
+                    <form method="POST" action="save/job/job_save.php">
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <select class="form-control" id="name" name="name" required>
-                                <option value="">Select Patient</option>
-                                <?php
-                                include 'connect.php';
+                        <div class="row" style="display: block;">
 
-                                $queryresult = select('new_patient', '*', '', '');
 
-                                foreach($queryresult as $row) {
-                                    echo "<option value='" . $row['p_name'] . "'>" . $row['p_name'] . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="c_date">Date</label>
-                            <input type="date" class="form-control" id="c_date" name="c_date" placeholder="Date" required>
-                        </div>
-                    </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Company</label>
+                                    <select class="form-control select2 hidden-search"
+                                        name="company_id" style="width: 100%;" autofocus>
+                                        <?php $result=select('company','*'); for ($i = 0; $row = $result->fetch(); $i++) {  ?>
+                                        <option value="<?php echo $row['id']  ?>"><?php echo $row['name']  ?></option>
+                                        <?php } ?>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="c_note">Note</label>
-                            <input type="text" class="form-control" id="c_note" name="c_note" placeholder="Note" required>
-                        </div>
-                    </div>
+                                    </select>
+                                </div>
+                            </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <select class="form-control" id="location" name="location" required>
-                                <option value="">Select Location</option>
-                                <option value="Colombo">Kadawatha</option>
-                                <option value="Gampaha">Gampaha</option>
-                            </select>
-                        </div>
-                    </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label>Note</label>
+                                    <textarea name="note" cols="70" rows="10" class="form-control"></textarea>
+                                </div>
+                            </div>
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="d_type">Types of Doctors</label>
-                            <select class="form-control" id="d_type" name="d_type" required>
-                                <option value="">Select Types of Doctors</option>
-                                <option value="Gynecologist">Gynecologist</option>
-                                <option value="General practitioner">General Practitioner</option>
-                                <option value="Allergist">Allergist</option>
-                            </select>
-                        </div>
-                    </div>
+                           
 
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-info btn-sm pull-right" value="Save" name="send" style="margin-top: 23px; width: 100%;">
-                        </div>
-                    </div>
+                            
 
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
-
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="hidden" name="unit" value="1">
+                                    <input type="submit" style="margin-top: 23px; width: 100%;" value="Save"
+                                        class="btn btn-info btn-sm pull-right">
+                                </div>
+                            </div>
 
 
                         </div>

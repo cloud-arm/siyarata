@@ -10,9 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $c_note = $_POST['c_note'];
     $d_type = $_POST['d_type'];
 
-
-
-
     // Check if the form is submitted
     $where = "c_date = '$c_date'";
     $result = select('channeling', 'MAX(patient_number) as max_number', $where, '../');
@@ -24,22 +21,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_number = $max_number + 1;
 
 
-    try {
-        $stmt = $db->prepare("INSERT INTO channeling (name, c_date, location, c_note, patient_number, d_type) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bindParam(1, $name);
-        $stmt->bindParam(2, $c_date);
-        $stmt->bindParam(3, $location);
-        $stmt->bindParam(4, $c_note);
-        $stmt->bindParam(5, $new_number);
-        $stmt->bindParam(6, $d_type);
 
-        if ($stmt->execute()) {
+    
+
+    $insertData = array(
+        "data" => array(
+            "name" => $name,
+            "c_date" => $c_date,
+            "location" => $location,
+            "c_note" => $c_note,
+            "patient_number" => $new_number,
+            "d_type" => $d_type,
+        ),
+        "other" => array(),
+    );
+
+
+
+
+
+    try {
+        if (insert("channeling", $insertData, '../')) {
             echo '<script language="javascript">';
             echo 'alert("Patient successfully recorded with number ' . $new_number . '")';
             echo '</script>';
             echo "<script> location.href='../index.php';</script>";
+        } else {
+            throw new Exception("Insertion failed");
         }
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         echo "Insertion failed: " . $e->getMessage();
     }
 }

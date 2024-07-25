@@ -28,14 +28,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    
-    $stmt = $db->prepare("INSERT INTO new_patient (p_name, p_phone_no, p_NIC, p_address) VALUES (?, ?, ?, ?)");
-    $stmt->bindParam(1, $p_name);
-    $stmt->bindParam(2, $p_phone_no);
-    $stmt->bindParam(3, $p_NIC);
-    $stmt->bindParam(4, $p_address);
+    $insertData = array(
+        "data" => array(
+            "p_name" => $p_name,
+            "p_phone_no" => $p_phone_no,
+            "p_NIC" => $p_NIC,
+            "p_address" => $p_address,
+          
+        ),
+        "other" => array(),
+    );
 
-    if ($stmt->execute()) {
+    
+
+
+    if (insert("new_patient", $insertData, '../')) {
         echo '<script>alert("Patient successfully recorded");</script>';
         echo "<script>location.href='../patient_details.php';</script>";
     } else {

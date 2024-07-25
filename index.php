@@ -121,7 +121,7 @@ $_SESSION['SESS_FORM'] = 'index';
                         <tbody>
                             <?php
                             // Fetch channeling data from the database, sorted by the most recent entry first
-                            $result = select('channeling', '*', '', '', 'c_id DESC');
+                            $result = select('channeling', '*');
 
                             for ($i = 0; $row = $result->fetch(); $i++) { ?>
                                 <tr>

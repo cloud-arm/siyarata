@@ -94,7 +94,7 @@ $_SESSION['SESS_FORM'] = 'index';
                                 <div class="progress-bar" style="width: 50%"></div>
                             </div>
                             <span class="progress-description">
-                              avilable
+                              are avilable
                             </span>
                         </div>
                     </div>

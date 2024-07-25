@@ -10,6 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $c_note = $_POST['c_note'];
     $d_type = $_POST['d_type'];
 
+    echo 'test1'
+
     // Check if the form is submitted
     $where = "c_date = '$c_date'";
     $result = select('channeling', 'MAX(patient_number) as max_number', $where, '../');
@@ -38,8 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-
-
+echo 'test2'
     try {
         if (insert("channeling", $insertData, '../')) {
             echo '<script language="javascript">';
@@ -53,4 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Insertion failed: " . $e->getMessage();
     }
 }
+
+echo 'test3'
 ?>

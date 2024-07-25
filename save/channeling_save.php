@@ -17,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Fetch the result
     //$row = $result->fetch(PDO::FETCH_ASSOC);
 
-    $max_number = $row['max_number'] ?? 0;
-    $new_number = $max_number + 1;
+   // $max_number = $row['max_number'] ?? 0;
+    //$new_number = $max_number + 1;
 
 
 

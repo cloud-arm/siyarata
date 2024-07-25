@@ -1,4 +1,7 @@
 <?php
+
+echo "test"
+
 include_once("../config.php"); 
 include_once("../connect.php");
 

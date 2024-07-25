@@ -200,7 +200,7 @@ $_SESSION['SESS_FORM'] = 'index';
                                             <label for="location">Location</label>
                                             <select id="location" name="location" class="form-control" required>
                                                  <option value="">Select location</option>
-                                                <option value="Colombo">Kadawatha</option>
+                                                <option value="kadawatha">Kadawatha</option>
                                                  <option value="Gampaha">Gampaha</option>
                                             </select>
                                         </div>

@@ -15,14 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = select('channeling', 'MAX(patient_number) as max_number', $where, '../');
 
     // Fetch the result
-    $row = $result->fetch(PDO::FETCH_ASSOC);
+    //$row = $result->fetch(PDO::FETCH_ASSOC);
 
     $max_number = $row['max_number'] ?? 0;
     $new_number = $max_number + 1;
 
 
 
-    
+
 
     $insertData = array(
         "data" => array(

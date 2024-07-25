@@ -161,7 +161,7 @@ $_SESSION['SESS_FORM'] = 'index';
                             <h3 class="box-title">Add Channel</h3>
                         </div>
                         <div class="box-body d-block">
-                            <form method="POST" action="./save/channeling_cont.php" onsubmit="return validateFormP()">
+                            <form method="POST" action="./save/channeling_save.php" onsubmit="return validateFormP()">
                                 <div class="row" style="display: block;">
                                     <div class="col-md-12">
                                         <div class="form-group">

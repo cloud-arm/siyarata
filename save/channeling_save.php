@@ -1,7 +1,7 @@
 <?php
 
 include_once("../config.php"); 
-include_once("../connect.php");
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];

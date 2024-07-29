@@ -40,7 +40,7 @@ $insert_out=[];
 
         $insert_out =insert("patient", $insertData, '../');
             //echo '<script>alert("Patient successfully recorded in patient");</script>';
-        echo json_encode($insert_out);
+        //echo json_encode($insert_out);
           
         
         $new_number=select_item('patient','patient_id',"patient_phone_no = '$patient_phone_no'",'../');
@@ -65,7 +65,7 @@ $insert_out=[];
 
         if (insert("channeling", $insertData, '../')) {
             echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
-           //echo "<script>location.href='../index.php';</script>";
+           echo "<script>location.href='../index.php';</script>";
         }
 
 

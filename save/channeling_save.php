@@ -3,56 +3,75 @@
 include_once("../config.php"); 
 
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $c_date = $_POST['c_date'];
+
+    $patient_id = $_POST['patient_id'] ?? 0;
+
+    //$c_id = $_POST['c_id'];
+    $date = $_POST['date'];
     $location = $_POST['location'];
-    $c_note = $_POST['c_note'];
-    $d_type = $_POST['d_type'];
+    $note = $_POST['note'];
+    $type = $_POST['type'];
+    $patient_name = $_POST['patient_name'];
+    $patient_phone_no = $_POST['patient_phone_no'];
+    $patient_NIC = $_POST['patient_NIC'];
+    $patient_address = $_POST['patient_address'];
+    $save_date = date("Y-m-d H:i:s");
+   // $treatment = $_POST['treatment'];
 
-   
+$insert_out=[];
 
-    // Check if the form is submitted
-    //$where = "c_date = '$c_date'";
-    //$result = select('channeling', 'MAX(patient_number) as max_number', $where, '../');
+    if ($patient_id == 0) {
+        
+        
+        $insertData = array(
+            "data" => array(
+                "patient_name" => $patient_name,
+                "patient_phone_no" => $patient_phone_no,
+                "patient_NIC" => $patient_NIC,
+                "patient_address" => $patient_address,
+              //  "save_date" => $save_date,
+               // "treatment" => $treatment,
+            ),
+            "other" => array(),
+        );
+        
 
-    // Fetch the result
-    //$row = $result->fetch(PDO::FETCH_ASSOC);
-
-   // $max_number = $row['max_number'] ?? 0;
-    //$new_number = $max_number + 1;
-
-
-
-
-
-    $insertData = array(
-        "data" => array(
-            "name" => $name,
-            "c_date" => $c_date,
-            "location" => $location,
-            "c_note" => $c_note,
-            "patient_number" => $new_number,
-            "d_type" => $d_type,
-        ),
-        "other" => array(),
-    );
-
-
-
-
-    try {
-        if (insert("channeling", $insertData, '../')) {
-            echo '<script language="javascript">';
-            echo 'alert("Patient successfully recorded with number ' . $new_number . '")';
-            echo '</script>';
-            echo "<script> location.href='../index.php';</script>";
-        } else {
-            throw new Exception("Insertion failed");
-        }
-    } catch (Exception $e) {
-        echo "Insertion failed: " . $e->getMessage();
+        $insert_out =insert("patient", $insertData, '../');
+            //echo '<script>alert("Patient successfully recorded in patient");</script>';
+        echo json_encode($insert_out);
+          
+        
+        $new_number=select_item('patient','patient_id',"patient_phone_no = '$patient_phone_no'",'../');
+    }else{
+        $new_number=$patient_id;
     }
-}
 
+
+        $insertData = array(
+            "data" => array(
+                "name" => $patient_name,
+                "date" => $date,
+                "location" => $location,
+                "note" => $note,
+                "patient_number" => $new_number,
+                "type" => $type,
+                "save_date" => $save_date,
+                //"treatment" => $treatment,
+            ),
+            "other" => array(),
+        );
+
+        if (insert("channeling", $insertData, '../')) {
+            echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
+           //echo "<script>location.href='../index.php';</script>";
+        }
+
+
+
+
+  
+    
+}
 ?>

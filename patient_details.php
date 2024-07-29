@@ -52,14 +52,14 @@ $_SESSION['SESS_FORM'] = 'patient_details';
                         <tbody>
                             <?php
                             // Fetch patient data from the database
-                            $result = select('new_patient', '*', '', '');
+                            $result = select('patient', '*', '', '');
                             for ($i = 0; $row = $result->fetch(); $i++) { ?>
                                 <tr>
-                                    <td><?php echo $row['p_id'] ?></td>
-                                    <td><?php echo $row['p_name'] ?></td>
-                                    <td><?php echo $row['p_phone_no'] ?></td>
-                                    <td><?php echo $row['p_NIC'] ?></td>
-                                    <td><?php echo $row['p_address'] ?></td>
+                                    <td><?php echo $row['patient_id'] ?></td>
+                                    <td><?php echo $row['patient_name'] ?></td>
+                                    <td><?php echo $row['patient_phone_no'] ?></td>
+                                    <td><?php echo $row['patient_NIC'] ?></td>
+                                    <td><?php echo $row['patient_address'] ?></td>
                                  
                                 </tr>
                             <?php } ?>
@@ -103,29 +103,29 @@ $_SESSION['SESS_FORM'] = 'patient_details';
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="p_name">Name</label>
-                            <input type="text" class="form-control" id="p_name" name="p_name" placeholder="Name" required>
+                            <label for="patient_name">Name</label>
+                            <input type="text" class="form-control" id="patient_name" name="patient_name" placeholder="Name" required>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="p_phone_no">Mobile No</label>
-                            <input type="text" class="form-control" id="p_phone_no" name="p_phone_no" placeholder="Mobile No" required>
+                            <label for="patient_phone_no">Mobile No</label>
+                            <input type="text" class="form-control" id="patient_phone_no" name="patient_phone_no" placeholder="Mobile No" required>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="p_NIC">NIC</label>
-                            <input type="text" class="form-control" id="p_NIC" name="p_NIC" placeholder="NIC" required>
+                            <label for="patient_NIC">NIC</label>
+                            <input type="text" class="form-control" id="patient_NIC" name="patient_NIC" placeholder="NIC" required>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="p_address">Address</label>
-                            <input type="text" class="form-control" id="p_address" name="p_address" placeholder="Address" required>
+                            <label for="patient_address">Address</label>
+                            <input type="text" class="form-control" id="patient_address" name="patient_address" placeholder="Address" required>
                         </div>
                     </div>
 

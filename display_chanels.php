@@ -40,7 +40,7 @@ $_SESSION['SESS_FORM'] = 'index';
        include 'connect.php';
 
         $view_date = $_POST['view_date'];
-        $where = "c_date = '$view_date' ORDER BY patient_number";
+        $where = "date = '$view_date' ORDER BY patient_number";
 
         
         $result = select('channeling', '*', $where, '');
@@ -59,9 +59,9 @@ $_SESSION['SESS_FORM'] = 'index';
                 echo "<tr>
                         <td>" . htmlspecialchars($row['patient_number']) . "</td>
                         <td>" . htmlspecialchars($row['name']) . "</td>
-                        <td>" . htmlspecialchars($row['c_date']) . "</td>
+                        <td>" . htmlspecialchars($row['date']) . "</td>
                    
-                        <td>" . htmlspecialchars($row['c_note']) . "</td>
+                        <td>" . htmlspecialchars($row['note']) . "</td>
                       </tr>";
             }
             echo "</table>";

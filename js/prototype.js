@@ -167,7 +167,7 @@ var Class = (function() {
 
   var _toString = Object.prototype.toString,
       NULL_TYPE = 'Null',
-      UNDEFINED_TYPE = 'Undefined',
+      UNDEFINEtype = 'Undefined',
       BOOLEAN_TYPE = 'Boolean',
       NUMBER_TYPE = 'Number',
       STRING_TYPE = 'String',
@@ -186,7 +186,7 @@ var Class = (function() {
   function Type(o) {
     switch(o) {
       case null: return NULL_TYPE;
-      case (void 0): return UNDEFINED_TYPE;
+      case (void 0): return UNDEFINEtype;
     }
     var type = typeof o;
     switch(type) {

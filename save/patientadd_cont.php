@@ -7,13 +7,13 @@ include_once("../connect.php");
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $p_name = $_POST['p_name'];
-    $p_phone_no = $_POST['p_phone_no'];
-    $p_NIC = $_POST['p_NIC'];
-    $p_address = $_POST['p_address'];
+    $patient_name = $_POST['patient_name'];
+    $patient_phone_no = $_POST['patient_phone_no'];
+    $patient_NIC = $_POST['patient_NIC'];
+    $patient_address = $_POST['patient_address'];
 
     
-    $nicResult = select('new_patient', '*', "p_NIC = '$p_NIC'", '../');
+    $nicResult = select('patient', '*', "patient_NIC = '$patient_NIC'", '../');
     if ($nicResult && $nicResult->rowCount() > 0) {
         echo '<script>alert("NIC already exists");</script>';
         echo "<script>location.href='addnewpatient.php';</script>";
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
    
-    $phoneResult = select('new_patient', '*', "p_phone_no = '$p_phone_no'", '../');
+    $phoneResult = select('patient', '*', "patient_phone_no = '$patient_phone_no'", '../');
     if ($phoneResult && $phoneResult->rowCount() > 0) {
         echo '<script>alert("Phone number already exists");</script>';
         echo "<script>location.href='addnewpatient.php';</script>";
@@ -30,10 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $insertData = array(
         "data" => array(
-            "p_name" => $p_name,
-            "p_phone_no" => $p_phone_no,
-            "p_NIC" => $p_NIC,
-            "p_address" => $p_address,
+            "patient_name" => $patient_name,
+            "patient_phone_no" => $patient_phone_no,
+            "patient_NIC" => $patient_NIC,
+            "patient_address" => $patient_address,
           
         ),
         "other" => array(),
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
 
-    if (insert("new_patient", $insertData, '../')) {
+    if (insert("patient", $insertData, '../')) {
         echo '<script>alert("Patient successfully recorded");</script>';
         echo "<script>location.href='../patient_details.php';</script>";
     } else {

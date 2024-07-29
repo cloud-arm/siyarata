@@ -42,12 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
 
-    if (insert("patient", $insertData, '../')) {
+     (insert("patient", $insertData, '../')) {
         echo '<script>alert("Patient successfully recorded");</script>';
         echo "<script>location.href='../patient_details.php';</script>";
-    } else {
-        echo '<script>alert("Error recording patient");</script>';
-        echo "<script>location.href='addnewpatian.php';</script>";
+     }
     }
-}
 ?>

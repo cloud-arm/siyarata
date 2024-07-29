@@ -157,10 +157,20 @@ $_SESSION['SESS_FORM'] = 'index';
                             </div>
                         </div>
 
+                        
+
                         <div class="col-md-12">
                             <div class="form-group">
                             <label for="patient_name">Name</label>
                             <input type="text" class="form-control" id="patient_name" name="patient_name" placeholder="Enter Patient Name">
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="patient_id">Patient ID</label>
+                                <input type="hidden" class="form-control" id="patient_id" name="patient_id" value="0">
                             </div>
                         </div>
 
@@ -292,7 +302,7 @@ console.log("old patient");
     document.getElementById('patient_name').value = json.patient_name;
     document.getElementById('patient_address').value = json.patient_address;
     document.getElementById('patient_NIC').value = json.patient_NIC;
-    document.getElementById('patient_id').value = json.p_id;
+    //document.getElementById('patient_id').value = json.p_id;
 
 
     document.getElementById('patient_name').disabled = true;

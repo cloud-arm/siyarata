@@ -6,7 +6,7 @@ include_once("../config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $patient_id = $_POST['patient_id'] ?? 0;
+    $patient_id = $_POST['patient_id'];
 
     //$c_id = $_POST['c_id'];
     $date = $_POST['date'];

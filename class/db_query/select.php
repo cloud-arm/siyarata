@@ -16,6 +16,16 @@ function select($table, $columns = "*", $where = "", $path = "")
         return $result;
     } catch (PDOException $e) {
         echo "Selection failed: " . $e->getMessage();
+
+                // Get the database name
+                $stmt = $db->query("SELECT DATABASE()");
+                $dbName = $stmt->fetchColumn();
+        
+                // create message
+                $message = "Please check error log..!  select()  ( File: " . $e->getFile() . " On line: " . $e->getLine() . " )  ( Message: " . $e->getMessage() . " )  ( Table Name: "  . $table . " )  ( Database Name: "  . $dbName . " )";
+        
+                // create discord alert
+                discord($message);
         return false;
     }
 }
@@ -38,6 +48,16 @@ function select_item($table, $columns, $where = "", $path = "")
         return $retun;
     } catch (PDOException $e) {
         echo "Selection failed: " . $e->getMessage();
+
+                        // Get the database name
+                        $stmt = $db->query("SELECT DATABASE()");
+                        $dbName = $stmt->fetchColumn();
+                
+                        // create message
+                        $message = "Please check error log..!  select_item()  ( File: " . $e->getFile() . " On line: " . $e->getLine() . " )  ( Message: " . $e->getMessage() . " )  ( Table Name: "  . $table . " )  ( Database Name: "  . $dbName . " )";
+                
+                        // create discord alert
+                        discord($message);
         return false;
     }
 }
@@ -52,6 +72,16 @@ function select_query($sql, $path = "")
         return $result;
     } catch (PDOException $e) {
         echo "Selection failed: " . $e->getMessage();
+
+                        // Get the database name
+                        $stmt = $db->query("SELECT DATABASE()");
+                        $dbName = $stmt->fetchColumn();
+                
+                        // create message
+                        $message = "Please check error log..!  select_query()  ( File: " . $e->getFile() . " On line: " . $e->getLine() . " )  ( Message: " . $e->getMessage() . " )  ( Table Name: "  . $table . " )  ( Database Name: "  . $dbName . " )";
+                
+                        // create discord alert
+                        discord($message);
         return false;
     }
 }

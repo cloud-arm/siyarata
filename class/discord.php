@@ -23,7 +23,7 @@ function discord($message, $header = "", $table = '')
             "username" => $header,
         ];
 
-        $curl = curl_init('https://discord.com/api/webhooks/1252501185919975435/rgAXPixQFrw9t8yais0f5oEHpuhBRjQ_IPUAeQe5VWzSiCvyUM-LuPDdHZQAShcMKLte');
+        $curl = curl_init('https://discord.com/api/webhooks/1266975030739206195/hHW5L1LPthYQSTZHYbkRTKwEGHhbKc5F7kkW1DPSDrZXok4f4TBVqXiim2ZYZezk14Fx');
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));

@@ -5,6 +5,9 @@ include_once("../config.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    //echo "test 12";
+    //  if (isset($_POST['patient_name'], $_POST['patient_NIC'], $_POST['patient_address'], $_POST['patient_id'], $_POST['date'], $_POST['location'], $_POST['note'], $_POST['type'], $_POST['patient_phone_no'])) {
+       
 
     $patient_id = $_POST['patient_id'];
 
@@ -12,19 +15,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST['date'];
     $location = $_POST['location'];
     $note = $_POST['note'];
-    $type = $_POST['type'];
-    $patient_name = $_POST['patient_name'];
-    $patient_phone_no = $_POST['patient_phone_no'];
-    $patient_NIC = $_POST['patient_NIC'];
-    $patient_address = $_POST['patient_address'];
-    $save_date = date("Y-m-d H:i:s");
+    $type = $_POST['type']; 
+    $name = ['name'];
+    $channeling_checkbox = isset($_POST['treatment']) ? 1 : 0;
+  
+    $save_date = date("Y-m-d H:i:s");  
    // $treatment = $_POST['treatment'];
+   
 
 $insert_out=[];
 
     if ($patient_id == 0) {
+
+        $patient_name = $_POST['patient_name']; 
+        $patient_phone_no = $_POST['patient_phone_no'];   
+        $patient_NIC = $_POST['patient_NIC'];   
+        $patient_address = $_POST['patient_address']; 
         
-        
+        //echo "test 1";
         $insertData = array(
             "data" => array(
                 "patient_name" => $patient_name,
@@ -44,8 +52,13 @@ $insert_out=[];
           
         
         $new_number=select_item('patient','patient_id',"patient_phone_no = '$patient_phone_no'",'../');
+       
     }else{
+      
         $new_number=$patient_id;
+        $patient_name = select_item("patient","patient_name","patient_id=$patient_id","../");
+       
+
     }
 
 
@@ -55,23 +68,34 @@ $insert_out=[];
                 "date" => $date,
                 "location" => $location,
                 "note" => $note,
-               // "patient_number" => $new_number,
+                "patient_number" => $new_number,
                 "type" => $type,
                 "save_date" => $save_date,
                 //"treatment" => $treatment,
+                "treatment" => $channeling_checkbox,
             ),
             "other" => array(),
         );
+       
 
-        if (insert("channeling", $insertData, '../')) {
-            echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
-           echo "<script>location.href='../index.php';</script>";
-        }
+
+
+           // $result = select_query("SELECT patient_name, patient_NIC, patient_address FROM patient", "../");
+
+
+
+
+        $insert_out =insert("channeling", $insertData, '../');
+           // echo json_encode($insert_out);
+            
+            //echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
+          echo "<script>location.href='../index.php';</script>";
+        
 
 
 
 
   
-    
-}
+    } 
+
 ?>

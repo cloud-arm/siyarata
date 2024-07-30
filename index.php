@@ -95,35 +95,38 @@ $_SESSION['SESS_FORM'] = 'index';
                     <span onclick="click_open(1)" class="btn btn-primary btn-bg pull-right mx-2">Add New Channel</span>
                 </div>
                 <div class="box-body">
-                    <table id="example1"  class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Channel ID</th>
-                                <th>Patient Name</th>
-                                <th>Date</th>
-                                <th>Note</th>
-                                <th>Location</th>
-                                <th>Doctor Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // Fetch channeling data from the database, sorted by the most recent entry first
-                            $result = select('channeling', '*', '', '', 'c_id DESC');
+    <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Channel ID</th>
+                <th>Patient Name</th>
+                <th>Date</th>
+                <th>Note</th>
+                <th>Location</th>
+                <th>Illness Type</th>
+                <th>Treatment</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Fetch channeling data from the database, sorted by the most recent entry first
+            $result = select('channeling', '*', '', '', 'id DESC');
 
-                            for ($i = 0; $row = $result->fetch(); $i++) { ?>
-                                <tr>
-                                    <td><?php echo $row['id'] ?></td>
-                                    <td><?php echo $row['name'] ?></td>
-                                    <td><?php echo $row['date'] ?></td>
-                                    <td><?php echo $row['note'] ?></td>
-                                    <td><?php echo $row['location'] ?></td>
-                                    <td><?php echo $row['type'] ?></td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
+            for ($i = 0; $row = $result->fetch(); $i++) { ?>
+                <tr>
+                    <td><?php echo $row['id'] ?></td>
+                    <td><?php echo $row['name'] ?></td>
+                    <td><?php echo $row['date'] ?></td>
+                    <td><?php echo $row['note'] ?></td>
+                    <td><?php echo $row['location'] ?></td>
+                    <td><?php echo $row['type'] ?></td>
+                    <td><?php echo $row['treatment'] == 1 ? 'Yes' : 'No'; ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
             </div>
 
         </section>
@@ -169,24 +172,24 @@ $_SESSION['SESS_FORM'] = 'index';
                         
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="patient_id">Patient ID</label>
+                                <label for="patient_id"></label>
                                 <input type="hidden" class="form-control" id="patient_id" name="patient_id" value="0">
                             </div>
                         </div>
 
-                                <div class="col-md-12">
-                                 <div class="form-group">
-                                <label for="patient_NIC">NIC</label>
-                                <input type="text" class="form-control" id="patient_NIC" name="patient_NIC" placeholder="Enter Patient NIC">
-                            </div>
-                        </div>
+                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                            <label for="patient_NIC">NIC</label>
+                                            <input type="text" class="form-control" id="patient_NIC" name="patient_NIC" placeholder="Enter Patient NIC">
+                                        </div>
+                                    </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="patient_address">Address</label>
-                                <input type="text" class="form-control" id="patient_address" name="patient_address" placeholder="Enter Patient Address">
-                            </div>
-                        </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="patient_address">Address</label>
+                                            <input type="text" class="form-control" id="patient_address" name="patient_address" placeholder="Enter Patient Address">
+                                        </div>
+                                    </div>
 
                         
 
@@ -212,7 +215,7 @@ $_SESSION['SESS_FORM'] = 'index';
                                             <select id="location" name="location" class="form-control"  required>
                                                 <option value="">Select location</option>
                                                 <option value="kadawatha">Kadawatha</option>
-                                                <option value="Gampaha">Gampaha</option>
+                                                <option value="pallekale">pallekale</option>
                                             </select>
                                         </div>
                                     </div>
@@ -231,7 +234,7 @@ $_SESSION['SESS_FORM'] = 'index';
                                               //  echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>";
                                             
                                             ?>
-                                            <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                                            <option  value="<?php echo $row['name'] ?>"><?php echo $row['name'] ?></option>
                                             <?php  } ?>
                                             </select>
                                         </div>
@@ -240,7 +243,7 @@ $_SESSION['SESS_FORM'] = 'index';
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             
-                                                <input class="form-check-input" type="checkbox" id="treatment" name="channeling_checkbox">
+                                        <input class="form-check-input" type="checkbox" id="treatment" name="treatment" value="1">
                                                 <label class="form-check-label" for="channeling_checkbox">
                                                      click hear this is treatment
                                                 </label>
@@ -302,7 +305,7 @@ console.log("old patient");
     document.getElementById('patient_name').value = json.patient_name;
     document.getElementById('patient_address').value = json.patient_address;
     document.getElementById('patient_NIC').value = json.patient_NIC;
-    //document.getElementById('patient_id').value = json.p_id;
+    document.getElementById('patient_id').value = json.patient_id;
 
 
     document.getElementById('patient_name').disabled = true;

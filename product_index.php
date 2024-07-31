@@ -159,35 +159,14 @@ $_SESSION['SESS_FORM'] = 'product_index';
 
             var barChartData = {
                 labels: [
-                    <?php
-                    $currentDate = new DateTime();
-                    $currentDate->sub(new DateInterval('P30D'));
-                    $back30 = $currentDate->format('Y-m-d');
-                    $date =  date("Y-m-d");
-
-                    $result = select_query("SELECT sales_list.name AS pro_name FROM sales_list JOIN products ON sales_list.product_id = products.id WHERE products.type = 'dish'  AND products.stock_action = 0  AND (sales_list.date BETWEEN '$back30' AND '$date') GROUP BY sales_list.product_id ORDER BY sum(sales_list.qty) DESC LIMIT 30 ");
-                    for ($i = 0; $row = $result->fetch(); $i++) {
-                        echo '"' . $row['pro_name'] . '",';
-                    }
-                    ?>
+                    "test1","test2","test3","test4",
                 ],
                 datasets: [{
                     label: "Rs.",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
                     data: [
-                        <?php
-                        $currentDate = new DateTime();
-                        $currentDate->sub(new DateInterval('P30D'));
-                        $back30 = $currentDate->format('Y-m-d');
-                        $date =  date("Y-m-d");
-
-                        $result = select_query("SELECT sum(sales_list.qty) FROM sales_list JOIN products ON sales_list.product_id = products.id WHERE products.type = 'dish'  AND products.stock_action = 0  AND (sales_list.date BETWEEN '$back30' AND '$date') GROUP BY sales_list.product_id ORDER BY sum(sales_list.qty) DESC LIMIT 30 ");
-                        // $result = select("sales_list", "sum(qty)", "date BETWEEN '$back30' AND '$date' GROUP BY product_id ORDER BY qty DESC LIMIT 15 ");
-                        for ($i = 0; $row = $result->fetch(); $i++) {
-                            echo '"' . $row['sum(sales_list.qty)'] . '",';
-                        }
-                        ?>
+                       "10","20","30","40",
                     ]
                 }],
             };
@@ -233,66 +212,10 @@ $_SESSION['SESS_FORM'] = 'product_index';
 
             var color = ["rgba(255, 100, 0, 1)", "rgba(255, 75, 0, 1)", "rgba(255, 50, 0, 1)"];
 
-            var lineChartData = {
-                labels: [
-                    <?php
-                    $i = 7;
-                    $currentDate = new DateTime();
-                    while ($i > 0) {
-                        $date = clone $currentDate;
-                        $date->modify("-$i days");
-                        echo '"' . $date->format('M d')  . '",';
-                        $i--;
-                    }
-                    ?>
-                ],
-                datasets: [
-                    <?php
-                    $currentDate = new DateTime();
-                    $currentDate->sub(new DateInterval('P7D'));
-                    $back30 = $currentDate->format('Y-m-d');
-                    $date =  date("Y-m-d");
-
-                    $result = select_query("SELECT sales_list.name AS pro_name,sales_list.product_id AS pro_id FROM sales_list JOIN products ON sales_list.product_id = products.id WHERE products.type = 'dish' AND products.stock_action = 0 AND sales_list.date BETWEEN '$back30' AND '$date' GROUP BY sales_list.product_id ORDER BY sum(sales_list.amount) DESC LIMIT 3 ");
-                    for ($i = 0; $row = $result->fetch(); $i++) {
-                    ?> {
-                            label: <?php echo '"' . $row['pro_name'] . '"'; ?>,
-                            fillColor: color[<?php echo $i; ?>],
-                            strokeColor: color[<?php echo $i; ?>],
-                            pointColor: color[<?php echo $i; ?>],
-                            pointStrokeColor: "#fff",
-                            pointHighlightFill: color[<?php echo $i; ?>],
-                            pointHighlightStroke: color[<?php echo $i; ?>],
-                            data: [
-                                <?php
-                                $x = 7;
-                                $currentDate = new DateTime();
-                                while ($x > 0) {
-                                    $day = clone $currentDate;
-                                    $day->modify("-$x days");
-                                    $day = $day->format('Y-m-d');
-
-                                    $result1 = select("sales_list", "amount", "product_id = '" . $row['pro_id'] . "' AND date  = '" . $day . "' ");
-                                    for ($k = 0; $row1 = $result1->fetch(); $k++) {
-                                        echo '"' . $row1['amount'] . '",';
-                                    }
-                                    $x--;
-                                }
-                                ?>
-                            ],
-                        },
-                    <?php
-                    }
-                    ?>
-                ],
-            };
 
 
-            var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
-            var lineChart = new Chart(lineChartCanvas);
 
-            barChartOptions.datasetFill = false;
-            lineChart.Bar(lineChartData, barChartOptions);
+
         });
     </script>
 </body>

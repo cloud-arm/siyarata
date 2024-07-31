@@ -32,20 +32,6 @@ $_SESSION['SESS_FORM'] = 'product_index';
             $back30 = $currentDate->format('Y-m-d');
             $date =  date("Y-m-d");
 
-            $result = select("products", "count(id)", " type='dish' ");
-            for ($i = 0; $row = $result->fetch(); $i++) {
-                $product_total = $row['count(id)'];
-            }
-
-            $result = select("products", "count(id)", " action = 0 AND type='dish' ");
-            for ($i = 0; $row = $result->fetch(); $i++) {
-                $active_product_total = $row['count(id)'];
-            }
-
-            $result = select_query("SELECT count(*) AS sales_count FROM (SELECT count(id) FROM sales_list WHERE  (date BETWEEN '$back30' AND '$date')  GROUP BY product_id ) AS subquery ");
-            for ($i = 0; $row = $result->fetch(); $i++) {
-                $product_sales = $row['sales_count'];
-            }
             ?>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3">
@@ -54,9 +40,9 @@ $_SESSION['SESS_FORM'] = 'product_index';
                         <span class="info-box-icon"><i class="fa fa-cutlery"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Products</span>
-                            <span class="info-box-number"><?php echo $product_total; ?></span>
+                            <span class="info-box-number"><?php // echo $product_total; ?></span>
                             <div class="progress">
-                                <div class="progress-bar" style="width: <?php echo $active_product_total / $product_total * 100; ?>%"></div>
+                                <div class="progress-bar" style="width: <?php // echo $active_product_total / $product_total * 100; ?>%"></div>
                             </div>
                             <span class="progress-description">
                                 Total Products
@@ -72,9 +58,9 @@ $_SESSION['SESS_FORM'] = 'product_index';
                         <span class="info-box-icon"><i class="fa fa-file-text"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Sales</span>
-                            <span class="info-box-number"><?php echo $product_sales; ?></span>
+                            <span class="info-box-number"><?php // echo $product_sales; ?></span>
                             <div class="progress">
-                                <div class="progress-bar" style="width: <?php echo $product_sales / $active_product_total * 100; ?>%"></div>
+                                <div class="progress-bar" style="width: <?php // echo $product_sales / $active_product_total * 100; ?>%"></div>
                             </div>
                             <span class="progress-description">
                                 Last 30-days Sales
@@ -144,88 +130,7 @@ $_SESSION['SESS_FORM'] = 'product_index';
         </section>
 
 
-        <div class="row">
-            <section class="content-header">
-                <h3>
-                    MOST REVENUE PRODUCTS
-                </h3>
-            </section>
-
-            <div class="col-md-6">
-
-                <section class="content">
-                    <div class="row">
-                        <?php
-                        $currentDate = new DateTime();
-                        $currentDate->sub(new DateInterval('P30D'));
-                        $back30 = $currentDate->format('Y-m-d');
-                        $date =  date("Y-m-d");
-
-                        $result = select("sales_list", "sum(amount)", "date BETWEEN '$back30' AND '$date' ");
-                        for ($i = 0; $row = $result->fetch(); $i++) {
-                            $sum_amount = $row['sum(amount)'];
-                        }
-
-                        $result = select_query("SELECT img,sum(sales_list.amount),sales_list.name AS pro_name,sales_list.price AS pro_price FROM sales_list JOIN products ON sales_list.product_id = products.id WHERE products.type = 'dish' AND products.stock_action = 0 AND sales_list.date BETWEEN '$back30' AND '$date' GROUP BY sales_list.product_id ORDER BY sum(sales_list.amount) DESC LIMIT 10 ");
-                        for ($i = 0; $row = $result->fetch(); $i++) {
-
-                            $img = $row['img'];
-
-                        ?>
-                            <div class="col-xs-12 col-md-6">
-
-                                <div class="info-box with-img">
-                                    <span class="info-box-icon">
-                                        <img src="app/product_img/<?php echo $img; ?>" alt="">
-                                    </span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text" title="<?php echo $row['pro_name']; ?>"><?php echo $row['pro_name']; ?></span>
-                                        <span class="info-box-number"><?php echo number_format($row['sum(sales_list.amount)'], 2); ?></span>
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: <?php echo $row['sum(sales_list.amount)'] / $sum_amount * 100; ?>%"></div>
-                                        </div>
-                                        <span class="progress-description">
-                                            <small>Rs.</small> <?php echo $row['pro_price']; ?>
-                                            
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-
-                </section>
-            </div>
-
-            <div class="col-md-6">
-
-                <section class="content">
-
-                    <!-- LINE CHART -->
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Best Revenue 03 Products</h3>
-
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <div class="chart">
-                                <canvas id="lineChart" style="height: 440px"></canvas>
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                </section>
-            </div>
-        </div>
+        
 
 
     </div>

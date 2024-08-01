@@ -69,6 +69,47 @@ $_SESSION['SESS_FORM'] = 'product_index';
 
                     </div>
                 </div>
+                <?php
+$sql = "
+SELECT 
+    DATE(date) AS date, 
+    COUNT(date) AS channeling_count 
+FROM 
+    channeling 
+WHERE 
+    date >= CURDATE() 
+    AND date < CURDATE() + INTERVAL 30 DAY
+GROUP BY 
+    DATE(date)
+ORDER BY 
+    date
+";
+
+// Execute the query using select_query function
+$result = select_query($sql, ''); // Pass the path if necessary
+
+// Fetch the results into an associative array
+$counts = [];
+if ($result) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+    $counts[$row['date']] = $row['channeling_count'];
+}
+}
+
+// Generate the date range from today to the next seven days
+$today = new DateTime();
+$interval = new DateInterval('P1D');
+$period = new DatePeriod($today, $interval, 30);
+
+// Ensure all dates in the range are represented
+foreach ($period as $date) {
+$formattedDate = $date->format('Y-m-d');
+if (!isset($counts[$formattedDate])) {
+    $counts[$formattedDate] = 0;
+}
+echo "Date: " . $formattedDate . " - Channeling Count: " . $counts[$formattedDate] . "\n";
+}
+                ?>
 
                 <div class="col-xs-12 col-sm-6 col-md-3">
 
@@ -159,14 +200,28 @@ $_SESSION['SESS_FORM'] = 'product_index';
 
             var barChartData = {
                 labels: [
-                    "test1","test2","test3","test4",
+                    <?php
+                    foreach ($period as $date) {
+                        $formattedDate = $date->format('Y-m-d');
+                       
+                        echo '"'.$formattedDate.'",';
+                    }
+                    ?>
                 ],
                 datasets: [{
                     label: "Rs.",
-                    pointStrokeColor: "#c1c7d1",
+                    pointStrokeColor: "#008000",
                     pointHighlightFill: "#fff",
                     data: [
-                       "10","20","30","40",
+                        <?php
+                    foreach ($period as $date) {
+                        $formattedDate = $date->format('Y-m-d');
+                        if (!isset($counts[$formattedDate])) {
+                            $counts[$formattedDate] = 0;
+                        }
+                        echo '"'.$counts[$formattedDate].'",';
+                    }
+                    ?>
                     ]
                 }],
             };
@@ -174,8 +229,8 @@ $_SESSION['SESS_FORM'] = 'product_index';
             var barChartCanvas = $("#barChart").get(0).getContext("2d");
             var barChart = new Chart(barChartCanvas);
 
-            barChartData.datasets[0].fillColor = "rgba(255, 102, 0, 1)";
-            barChartData.datasets[0].strokeColor = "rgba(255, 102, 0, 1)";
+            barChartData.datasets[0].fillColor = "rgb(80, 200, 120)";
+            barChartData.datasets[0].strokeColor = "rgb(80, 200, 120)";
             barChartData.datasets[0].pointColor = "rgba(255, 102, 0, 1)";
             barChartData.datasets[0].pointHighlightStroke = "rgba(255, 102, 0, 1)";
 

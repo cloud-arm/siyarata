@@ -60,6 +60,23 @@ $insert_out=[];
        
 
     }
+    $channeling_no = select_item("channeling", "count(id)", "date = '$date' AND location = '$location'", "../");
+    $channeling_no = $channeling_no + 1;
+
+    
+    
+
+    $location_p = "";
+    if ($location == "kadawatha") {
+        $location_p = "KA";
+    } elseif ($location == "pallekale") {
+        $location_p = "PA";
+    }
+    //$date_part = date("Ymd", strtotime($date));
+
+    //$last_number = select_query("SELECT COUNT(id) AS count FROM channeling WHERE location = '$location' AND date = '$date'", '../');
+    $last_number = $location_p.$channeling_no;
+
 
 
         $insertData = array(
@@ -71,7 +88,7 @@ $insert_out=[];
                 "patient_number" => $new_number,
                 "type" => $type,
                 "save_date" => $save_date,
-                //"treatment" => $treatment,
+                "channeling_no" => $last_number,
                 "treatment" => $channeling_checkbox,
             ),
             "other" => array(),
@@ -89,7 +106,7 @@ $insert_out=[];
            // echo json_encode($insert_out);
             
             //echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
-          echo "<script>location.href='../index.php';</script>";
+            echo "<script>location.href='../index.php';</script>";
         
 
 

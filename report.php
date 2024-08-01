@@ -26,13 +26,13 @@ include("head.php");
                 <div class="col-md-6">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Date Selector</h3>
+                            <h3 class="box-title">Date and Location Selector</h3>
                         </div>
                         <div class="box-body">
                             <form action="" method="GET">
                                 <div class="row" style="margin-bottom: 20px; display: flex; align-items: end;">
                                     <div class="col-lg-1"></div>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-6">
                                         <label>Date range:</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
@@ -40,6 +40,14 @@ include("head.php");
                                             </div>
                                             <input type="text" class="form-control pull-right" id="reservation" name="dates" value="<?php echo date('Y-m-d'); ?>">
                                         </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Location:</label>
+                                        <select class="form-control" name="location">
+                                            <option value="">Select Location</option>
+                                            <option value="kadawatha">Kadawatha</option>
+                                            <option value="pallekale">Pallekale</option>
+                                        </select>
                                     </div>
                                     <div class="col-lg-2">
                                         <input type="submit" class="btn btn-info" value="Apply">
@@ -59,22 +67,18 @@ include("head.php");
                 $dates = $_GET['dates'];
                 $d1 = date_format(date_create(explode(" - ", $dates)[0]), "Y-m-d");
                 $d2 = date_format(date_create(explode(" - ", $dates)[1]), "Y-m-d");
-
-            
+                $location = $_GET['location'];
 
                 // Fetch channeling data
-               // $channeling_where = "date BETWEEN '$d1' AND '$d2'";
-                //$channeling_result = select('channeling', '*', $channeling_where);
-                //("SELECT * FROM sales WHERE dll=0 AND date BETWEEN '$d1' AND '$d2'  ")
-                //"SELECT * FROM chanel WHERE date = ? ORDER BY patient_number"
-
-                $channeling_result = select_query("SELECT * FROM channeling WHERE date BETWEEN '$d1' AND '$d2' ");
+                if (!empty($location)) {
+                    $channeling_result = select_query("SELECT * FROM channeling WHERE date BETWEEN '$d1' AND '$d2' AND location='$location'");
+                } else {
+                    $channeling_result = select_query("SELECT * FROM channeling WHERE date BETWEEN '$d1' AND '$d2'");
+                }
             }
             ?>
 
             <section class="content">
-              
-
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">Channeling Details</h3>
@@ -84,10 +88,9 @@ include("head.php");
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>name</th>
-                                   
-                                    <th>location</th>
-                                    <th>illness</th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Illness</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,7 +101,6 @@ include("head.php");
                                         <tr>
                                             <td><?php echo $row['date']; ?></td>
                                             <td><?php echo $row['name']; ?></td>
-                                            
                                             <td><?php echo $row['location']; ?></td>
                                             <td><?php echo $row['type']; ?></td>
                                         </tr>

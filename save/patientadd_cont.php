@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
      (insert("patient", $insertData, '../')) {
-        echo '<script>alert("Patient successfully recorded");</script>';
+        echo "<script>alert('Patient successfully recorded');</script>";
         echo "<script>location.href='../patient_details.php';</script>";
      }
     }

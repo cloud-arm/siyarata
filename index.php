@@ -241,21 +241,24 @@ $_SESSION['SESS_FORM'] = 'index';
                     <form method="POST" action="./save/channeling_save.php" onsubmit="return validateFormP()">
                         <div class="row" style="display: block;">
 
-                            <div class="col-md-6">
+
+                        <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="phone_no">Phone no</label>
-                                    <input type="text" class="form-control" onchange="find_patient(event)" id="phone"
-                                        name="patient_phone_no" placeholder="Phone No">
+                                    <label for="patient_NIC">NIC</label>
+                                    <input type="text" class="form-control" id="patient_NIC" onchange="find_patient(event)" name="patient_NIC"
+                                        placeholder="Enter Patient NIC" autocomplete="off">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="patient_NIC">NIC</label>
-                                    <input type="text" class="form-control" id="patient_NIC" name="patient_NIC"
-                                        placeholder="Enter Patient NIC" autocomplete="off">
+                                    <label for="phone_no">Phone no</label>
+                                    <input type="text" class="form-control"  id="phone"
+                                        name="patient_phone_no" placeholder="Phone No">
                                 </div>
                             </div>
+
+                           
 
 
 
@@ -401,11 +404,11 @@ $_SESSION['SESS_FORM'] = 'index';
 
     <script>
     function find_patient(event) {
-        var phone = document.getElementById('phone').value;
-        console.log(phone);
+        var nic = document.getElementById('patient_NIC').value;
+        
 
         var data = 'ur';
-        fetch("patient_data.php?phone_no=" + phone)
+        fetch("patient_data.php?nic=" + nic)
             .then((response) => response.json())
             .then((json) => fill(json));
     }
@@ -419,26 +422,34 @@ $_SESSION['SESS_FORM'] = 'index';
             console.log("old patient");
             document.getElementById('patient_name').value = json.patient_name;
             document.getElementById('patient_address').value = json.patient_address;
-            document.getElementById('patient_NIC').value = json.patient_NIC;
+            document.getElementById('phone').value = json.patient_phone_no;
             document.getElementById('patient_id').value = json.patient_id;
 
 
             document.getElementById('patient_name').disabled = true;
             document.getElementById('patient_address').disabled = true;
-            document.getElementById('patient_NIC').disabled = true;
+            document.getElementById('phone').disabled = true;
+
+            document.getElementById('patient_name').style= 'border: 1px solid #0cc40f';
+            document.getElementById('patient_address').style= 'border: 1px solid #0cc40f';
+            document.getElementById('phone').style= 'border: 1px solid #0cc40f';
 
 
         } else {
             console.log("new patient");
             document.getElementById('patient_name').value = '';
             document.getElementById('patient_address').value = '';
-            document.getElementById('patient_NIC').value = '';
+            document.getElementById('phone').value = '';
             document.getElementById('patient_id').value = '0';
 
 
             document.getElementById('patient_name').disabled = false;
             document.getElementById('patient_address').disabled = false;
-            document.getElementById('patient_NIC').disabled = false;
+            document.getElementById('phone').disabled = false;
+
+            document.getElementById('patient_name').style= 'border: 1px solid ';
+            document.getElementById('patient_address').style= 'border: 1px solid ';
+            document.getElementById('phone').style= 'border: 1px solid ';
 
         }
     }

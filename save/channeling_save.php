@@ -104,6 +104,11 @@ $insert_out=[];
 
         $insert_out =insert("channeling", $insertData, '../');
            // echo json_encode($insert_out);
+        $masage="TRADITIONAL DR. RANJAN MUHANDIRAM  ( patient:".$patient_name."  Date:".$date."  App No:".$new_number." Place:".$location.") SIYARATA MUHANDIRAM HOSPITAL (PVT) LTD";
+
+
+
+       print_r( sms('0779252594',$masage));
             
             //echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
             echo "<script>location.href='../index.php';</script>";

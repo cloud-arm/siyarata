@@ -103,12 +103,20 @@ $insert_out=[];
 
 
         $insert_out =insert("channeling", $insertData, '../');
+        if($location=='pallekale'){
+            $plase="SIYARATA MUHANDIRAM HOSPITAL - Pallekale";
+        }
+
+        if($location=='kadawatha'){
+            $plase="INDRA HOTEL - KADAWATHA";
+        }
            // echo json_encode($insert_out);
-        $masage="TRADITIONAL DR. RANJAN MUHANDIRAM  ( patient:".$patient_name."  Date:".$date."  App No:".$new_number." Place:".$location.") SIYARATA MUHANDIRAM HOSPITAL (PVT) LTD";
+        $masage="TRADITIONAL DR. RANJAN MUHANDIRAM  ( patient:".$patient_name."  Date:".$date."  App No:".$new_number." Place:".$plase.")";
 
 
+        $phone=select_item("patient","patient_phone_no","patient_id=$patient_id","../");
 
-       print_r( sms('0779252594',$masage));
+        sms($phone,$masage);
             
             //echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
             echo "<script>location.href='../index.php';</script>";

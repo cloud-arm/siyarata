@@ -23,9 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    // $treatment = $_POST['treatment'];
    
 
-$insert_out=[];
+ $insert_out=[];
 
-    if ($patient_id == 0) {
+   if ($patient_id == 0) {
 
         $patient_name = $_POST['patient_name']; 
         $patient_phone_no = $_POST['patient_phone_no'];   
@@ -51,31 +51,31 @@ $insert_out=[];
         //echo json_encode($insert_out);
           
         
-        $new_number=select_item('patient','patient_id',"patient_phone_no = '$patient_phone_no'",'../');
+        $new_number=select_item('patient','patient_id',"patient_NIC = '$patient_NIC'",'../');
        
-    }else{
+     }else{
       
         $new_number=$patient_id;
         $patient_name = select_item("patient","patient_name","patient_id=$patient_id","../");
        
 
-    }
-    $channeling_no = select_item("channeling", "count(id)", "date = '$date' AND location = '$location'", "../");
-    $channeling_no = $channeling_no + 1;
+     }
+     $channeling_no = select_item("channeling", "count(id)", "date = '$date' AND location = '$location'", "../");
+     $channeling_no = $channeling_no + 1;
 
     
     
 
-    $location_p = "";
-    if ($location == "kadawatha") {
+     $location_p = "";
+     if ($location == "kadawatha") {
         $location_p = "KA";
-    } elseif ($location == "pallekale") {
+     } elseif ($location == "pallekale") {
         $location_p = "PA";
-    }
-    //$date_part = date("Ymd", strtotime($date));
+     }
+     //$date_part = date("Ymd", strtotime($date));
 
-    //$last_number = select_query("SELECT COUNT(id) AS count FROM channeling WHERE location = '$location' AND date = '$date'", '../');
-    $last_number = $location_p.$channeling_no;
+     //$last_number = select_query("SELECT COUNT(id) AS count FROM channeling WHERE location = '$location' AND date = '$date'", '../');
+     $last_number = $location_p.$channeling_no;
 
 
 
@@ -114,18 +114,12 @@ $insert_out=[];
         $masage="TRADITIONAL DR. RANJAN MUHANDIRAM  [patient:".$patient_name."  Date:".$date."  App_No:".$last_number." Place:".$plase."]";
 
 
-        $phone=select_item("patient","patient_phone_no","patient_id=$patient_id","../");
+        $phone=select_item("patient","patient_phone_no","patient_id=$new_number","../");
 
         sms($phone,$masage);
             
             //echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
             echo "<script>location.href='../index.php';</script>";
         
-
-
-
-
   
-    } 
-
-?>
+} 

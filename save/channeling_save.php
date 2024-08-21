@@ -111,7 +111,7 @@ $insert_out=[];
             $plase="INDRA HOTEL - KADAWATHA";
         }
            // echo json_encode($insert_out);
-        $masage="TRADITIONAL DR. RANJAN MUHANDIRAM  ( patient:".$patient_name."  Date:".$date."  App No:".$new_number." Place:".$plase.")";
+        $masage="TRADITIONAL DR. RANJAN MUHANDIRAM  [patient:".$patient_name."  Date:".$date."  App_No:".$last_number." Place:".$plase."]";
 
 
         $phone=select_item("patient","patient_phone_no","patient_id=$patient_id","../");

@@ -37,7 +37,7 @@ $_SESSION['SESS_FORM'] = 'patient_details';
             <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">Patient list</h3>
-                    <span onclick="click_open(1)"  class="btn btn-primary btn-bg pull-right  mx-2">Add New patient</span>
+            
                     <table id="example1" class="table table-bordered table-striped">
                     <thead>
                             <tr>

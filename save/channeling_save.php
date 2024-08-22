@@ -116,10 +116,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $phone=select_item("patient","patient_phone_no","patient_id=$new_number","../");
 
-        sms($phone,$masage);
+       print( sms($phone,$masage));
             
             //echo '<script>alert("Patient successfully recorded in channeling with number ");</script>';
-            echo "<script>location.href='../index.php';</script>";
+          //  echo "<script>location.href='../index.php';</script>";
         
   
 } 

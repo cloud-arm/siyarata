@@ -28,7 +28,7 @@ curl_setopt_array($curl, array(
 "push_notification_url": " https://xxx/xx?"
 }',
   CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMyODAsInVzZXJuYW1lIjoiZXJhbmRhIiwibW9iaWxlIjo3NzkyNTI1OTQsImVtYWlsIjoiZXJhbmRhc2FtcGF0aDIwMDBAZ21haWwuY29tIiwiY3VzdG9tZXJfcm9sZSI6MCwiaWF0IjoxNzI0NTYwNjYwLCJleHAiOjE3MjQ2MDM4NjB9.UBrsIvuGpLVLZ1e-BPZW-66MdjmLkkgr87MAbgHLt7g',
+    'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMyODAsInVzZXJuYW1lIjoiZXJhbmRhIiwibW9iaWxlIjo3NzkyNTI1OTQsImVtYWlsIjoiZXJhbmRhc2FtcGF0aDIwMDBAZ21haWwuY29tIiwiY3VzdG9tZXJfcm9sZSI6MCwiaWF0IjoxNzI0NjQyMTIyLCJleHAiOjE3MjQ2ODUzMjJ9.bjmyws3yxkioO9qSuomyLRT7whvoNAIzYSsA3SXl_Xk',
     'Content-Type: application/json'
   ),
 ));
